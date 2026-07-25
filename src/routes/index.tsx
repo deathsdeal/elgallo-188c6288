@@ -11,10 +11,10 @@ export const Route = createFileRoute("/")({
         content:
           "Bold, bright, and built to last. Traditional American tattoos by El Gallo. Walk-ins, flash, and custom appointments.",
       },
-      { property: "og:title", content: "Tattoos By El Gallo" },
+      { property: "og:title", content: "Tattoos By El Gallo — Traditional American Tattooing" },
       {
         property: "og:description",
-        content: "Traditional American tattoos. Walk-ins, flash, and custom appointments.",
+        content: "Bold, bright, and built to last. Traditional American tattoos by El Gallo. Walk-ins, flash, and custom appointments.",
       },
     ],
   }),

@@ -81,16 +81,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Bold, bright, built to last. Traditional American tattoos by El Gallo — walk-ins, custom flash, and appointments.",
+          "Bold, bright, and built to last. Traditional American tattoos by El Gallo. Walk-ins, flash, and custom appointments.",
       },
       { name: "author", content: "El Gallo" },
-      { property: "og:title", content: "Tattoos By El Gallo" },
+      { property: "og:title", content: "Tattoos By El Gallo — Traditional American Tattooing" },
       {
         property: "og:description",
-        content: "Traditional American tattooing. Walk-ins, custom flash, and appointments.",
+        content: "Bold, bright, and built to last. Traditional American tattoos by El Gallo. Walk-ins, flash, and custom appointments.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Tattoos By El Gallo — Traditional American Tattooing" },
+      { name: "twitter:description", content: "Bold, bright, and built to last. Traditional American tattoos by El Gallo. Walk-ins, flash, and custom appointments." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2a2114d1-d031-4826-8470-29445dc97c0e/id-preview-9b5edb73--8bebfd63-403b-4306-936a-a788c3f5d216.lovable.app-1785011727829.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2a2114d1-d031-4826-8470-29445dc97c0e/id-preview-9b5edb73--8bebfd63-403b-4306-936a-a788c3f5d216.lovable.app-1785011727829.png" },
     ],
     links: [
       {
