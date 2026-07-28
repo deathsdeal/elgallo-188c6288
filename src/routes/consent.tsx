@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Divider, CornerHeart } from "@/components/el-gallo-ornaments";
+import { Divider } from "@/components/el-gallo-ornaments";
 
 export const Route = createFileRoute("/consent")({
   head: () => ({
@@ -110,18 +110,13 @@ function ConsentPage() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-3xl px-6 py-16">
-        <div className="relative border-4 border-double border-blood/80 p-8 md:p-12">
-          <CornerHeart className="absolute -top-3 -left-3" />
-          <CornerHeart className="absolute -top-3 -right-3" />
-          <CornerHeart className="absolute -bottom-3 -left-3" />
-          <CornerHeart className="absolute -bottom-3 -right-3" />
-
+      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
+        <div className="relative border-2 sm:border-4 border-double border-blood/80 p-5 sm:p-8 md:p-12">
           <div className="text-center">
             <p className="font-sans text-xs uppercase tracking-[0.3em] text-blood">
               Tattoos By El Gallo
             </p>
-            <h1 className="mt-3 font-display text-4xl md:text-5xl">
+            <h1 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl">
               Consent & Release Form
             </h1>
             <Divider className="my-6" />
