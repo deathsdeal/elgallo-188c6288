@@ -116,7 +116,7 @@ function ConsentPage() {
             <p className="font-sans text-xs uppercase tracking-[0.3em] text-blood">
               Tattoos By El Gallo
             </p>
-            <h1 className="mt-3 font-display text-4xl md:text-5xl">
+            <h1 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl">
               Consent & Release Form
             </h1>
             <Divider className="my-6" />
