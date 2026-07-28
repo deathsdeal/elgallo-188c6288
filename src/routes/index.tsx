@@ -50,6 +50,7 @@ function TopBar() {
           <a href="#flash" className="hover:text-blood">Flash</a>
           <a href="#about" className="hover:text-blood">The Shop</a>
           <a href="#booking" className="hover:text-blood">Booking</a>
+          <a href="/consent" className="hover:text-blood">Consent</a>
         </nav>
         <a
           href="#booking"
