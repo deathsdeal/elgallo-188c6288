@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import posterAsset from "@/assets/el-gallo-poster.png.asset.json";
+import { useState } from "react";
+import posterUrl from "@/assets/el-gallo-poster.jpg";
 import { Flourish, CornerHeart, Divider } from "@/components/el-gallo-ornaments";
 
 export const Route = createFileRoute("/")({
@@ -37,6 +38,14 @@ function Home() {
 }
 
 function TopBar() {
+  const [open, setOpen] = useState(false);
+  const links = [
+    { href: "#portfolio", label: "Portfolio" },
+    { href: "#flash", label: "Flash" },
+    { href: "#about", label: "The Shop" },
+    { href: "#booking", label: "Booking" },
+    { href: "/consent", label: "Consent" },
+  ];
   return (
     <header className="relative z-20 border-b-2 border-blood/70">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
@@ -46,11 +55,9 @@ function TopBar() {
           </span>
         </a>
         <nav className="hidden items-center gap-8 font-sans text-sm uppercase tracking-[0.18em] md:flex">
-          <a href="#portfolio" className="hover:text-blood">Portfolio</a>
-          <a href="#flash" className="hover:text-blood">Flash</a>
-          <a href="#about" className="hover:text-blood">The Shop</a>
-          <a href="#booking" className="hover:text-blood">Booking</a>
-          <a href="/consent" className="hover:text-blood">Consent</a>
+          {links.map((l) => (
+            <a key={l.href} href={l.href} className="hover:text-blood">{l.label}</a>
+          ))}
         </nav>
         <a
           href="#booking"
@@ -58,7 +65,41 @@ function TopBar() {
         >
           Book a Session
         </a>
+        <button
+          type="button"
+          aria-label="Open menu"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 border-2 border-ink md:hidden"
+        >
+          <span className={`h-0.5 w-5 bg-ink transition ${open ? "translate-y-2 rotate-45" : ""}`} />
+          <span className={`h-0.5 w-5 bg-ink transition ${open ? "opacity-0" : ""}`} />
+          <span className={`h-0.5 w-5 bg-ink transition ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+        </button>
       </div>
+      {open && (
+        <nav className="border-t-2 border-blood/70 bg-paper md:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col px-6 py-2 font-sans text-sm uppercase tracking-[0.2em]">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="border-b border-ink/10 py-3 hover:text-blood"
+              >
+                {l.label}
+              </a>
+            ))}
+            <a
+              href="#booking"
+              onClick={() => setOpen(false)}
+              className="mt-3 mb-3 rounded-sm border-2 border-blood bg-blood px-4 py-3 text-center text-xs uppercase tracking-[0.2em] text-paper"
+            >
+              Book a Session
+            </a>
+          </div>
+        </nav>
+      )}
     </header>
   );
 }
@@ -120,7 +161,7 @@ function Hero() {
               <CornerHeart className="absolute -bottom-[7px] -left-[7px] h-3 w-3 text-blood" />
               <CornerHeart className="absolute -bottom-[7px] -right-[7px] h-3 w-3 text-blood" />
               <img
-                src={posterAsset.url}
+                src={posterUrl}
                 alt="Tattoos By El Gallo — traditional rooster flash poster"
                 className="block h-auto w-full select-none"
                 draggable={false}

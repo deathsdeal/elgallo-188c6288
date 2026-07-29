@@ -139,8 +139,15 @@ export const Route = createFileRoute("/api/public/consent")({
           if (!res.ok) {
             const body = await res.text();
             console.error(`Resend failed [${res.status}]: ${body}`);
+            let message = `Email failed (${res.status}).`;
+            try {
+              const parsed = JSON.parse(body) as { message?: string };
+              if (parsed.message) message = parsed.message;
+            } catch {
+              // ignore
+            }
             return Response.json(
-              { error: `Email failed: ${res.status}` },
+              { error: message },
               { status: 502 },
             );
           }
