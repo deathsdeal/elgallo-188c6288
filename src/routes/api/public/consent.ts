@@ -128,7 +128,7 @@ export const Route = createFileRoute("/api/public/consent")({
               Authorization: `Bearer ${apiKey}`,
             },
             body: JSON.stringify({
-              from: "El Gallo Consent <noreply@wytacticaltech.com>",
+              from: "El Gallo Consent <website@send.wytacticaltech.com>",
               to: ["tattoo@wytacticaltech.com"],
               reply_to: data.email,
               subject: `Tattoo Consent — ${data.fullName}`,
