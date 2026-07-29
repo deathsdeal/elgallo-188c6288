@@ -2,6 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import posterUrl from "@/assets/el-gallo-poster.jpg";
 import { Flourish, CornerHeart, Divider } from "@/components/el-gallo-ornaments";
+import anubisAsset from "@/assets/portfolio/anubis.jpg.asset.json";
+import kittenAsset from "@/assets/portfolio/kitten.jpg.asset.json";
+import piece3210Asset from "@/assets/portfolio/piece-3210.jpg.asset.json";
+import piece3769Asset from "@/assets/portfolio/piece-3769.jpg.asset.json";
+import piece3957Asset from "@/assets/portfolio/piece-3957.jpg.asset.json";
+import lotusAsset from "@/assets/portfolio/lotus.jpg.asset.json";
+import turtleAsset from "@/assets/portfolio/turtle.jpg.asset.json";
+import batmanAsset from "@/assets/portfolio/batman.jpg.asset.json";
+import wingsAsset from "@/assets/portfolio/wings.jpg.asset.json";
+import animeAsset from "@/assets/portfolio/anime.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -259,21 +269,21 @@ function About() {
 
 function Portfolio() {
   const items = [
-    { title: "Rose & Dagger", tag: "Forearm" },
-    { title: "Panther Head", tag: "Thigh" },
-    { title: "Swallow Pair", tag: "Chest" },
-    { title: "Heart in Hand", tag: "Bicep" },
-    { title: "Eagle Back", tag: "Back" },
-    { title: "Skull & Rose", tag: "Calf" },
+    { title: "Anubis & Time", tag: "Forearm", src: anubisAsset.url },
+    { title: "Winged Heart", tag: "Back", src: wingsAsset.url },
+    { title: "Lotus in Bloom", tag: "Forearm", src: lotusAsset.url },
+    { title: "Dark Knight", tag: "Chest", src: batmanAsset.url },
+    { title: "Kitten", tag: "Leg", src: kittenAsset.url },
+    { title: "Anime Spirit", tag: "Thigh", src: animeAsset.url },
+    { title: "Hero in Half-Shell", tag: "Wrist", src: turtleAsset.url },
+    { title: "Custom Piece", tag: "In Progress", src: piece3210Asset.url },
+    { title: "Custom Piece", tag: "Healed", src: piece3769Asset.url },
+    { title: "Custom Piece", tag: "Fresh", src: piece3957Asset.url },
   ];
   return (
     <section id="portfolio" className="relative border-y-2 border-blood/50 bg-paper-deep py-24">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader kicker="Portfolio" title="Recent work" />
-        <p className="mt-4 max-w-xl font-sans text-sm uppercase tracking-[0.18em] text-ink/70">
-          Pieces coming soon — El Gallo is preparing the gallery.
-        </p>
-
         <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
           {items.map((it, i) => (
             <figure
@@ -284,17 +294,18 @@ function Portfolio() {
               <CornerHeart className="absolute -right-[6px] -top-[6px] h-2.5 w-2.5 text-blood" />
               <CornerHeart className="absolute -bottom-[6px] -left-[6px] h-2.5 w-2.5 text-blood" />
               <CornerHeart className="absolute -bottom-[6px] -right-[6px] h-2.5 w-2.5 text-blood" />
-              <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center">
-                <span className="font-sans text-[10px] uppercase tracking-[0.35em] text-blood">
-                  Plate № {String(i + 1).padStart(2, "0")}
+              <img
+                src={it.src}
+                alt={`${it.title} — ${it.tag}`}
+                loading="lazy"
+                className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 flex items-baseline justify-between gap-2 bg-gradient-to-t from-ink/85 via-ink/50 to-transparent px-3 py-3 text-paper">
+                <span className="font-display text-lg leading-tight">{it.title}</span>
+                <span className="font-sans text-[10px] uppercase tracking-[0.25em] text-paper/70">
+                  № {String(i + 1).padStart(2, "0")} · {it.tag}
                 </span>
-                <Flourish className="h-5 w-28 text-blood/70" />
-                <span className="font-display text-2xl leading-tight">{it.title}</span>
-                <span className="font-sans text-xs uppercase tracking-[0.25em] text-ink/60">
-                  {it.tag}
-                </span>
-                <Flourish className="h-5 w-28 -scale-y-100 text-blood/70" />
-              </div>
+              </figcaption>
             </figure>
           ))}
         </div>
