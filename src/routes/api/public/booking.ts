@@ -3,7 +3,8 @@ import { z } from "zod";
 
 const BookingSchema = z.object({
   name: z.string().min(1).max(200),
-  contact: z.string().min(1).max(200),
+  phone: z.string().min(1).max(200),
+  email: z.string().max(200).optional().default(""),
   placement: z.string().max(200).optional().default(""),
   size: z.string().max(200).optional().default(""),
   idea: z.string().max(2000).optional().default(""),
