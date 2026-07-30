@@ -44,7 +44,8 @@ export const Route = createFileRoute("/api/public/booking")({
   <h2 style="color:#7a1a1a;margin-top:24px;">Client Request</h2>
   <table style="width:100%;border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px;">
     ${row("Name", data.name)}
-    ${row("Phone / Email", data.contact)}
+    ${row("Phone", data.phone)}
+    ${row("Email", data.email)}
     ${row("Placement", data.placement)}
     ${row("Approx. Size", data.size)}
     ${row("Idea / Description", data.idea)}
@@ -62,7 +63,7 @@ export const Route = createFileRoute("/api/public/booking")({
             body: JSON.stringify({
               from: "El Gallo Booking <website@send.wytacticaltech.com>",
               to: ["tattoo@wytacticaltech.com"],
-              reply_to: data.contact.includes("@") ? data.contact : undefined,
+              reply_to: data.email.includes("@") ? data.email : undefined,
               subject: `Tattoo Booking Request — ${data.name}`,
               html,
             }),
