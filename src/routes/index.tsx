@@ -508,20 +508,33 @@ function Booking() {
 }
 
 
-function Field({ label, placeholder }: { label: string; placeholder: string }) {
+function Field({
+  name,
+  label,
+  placeholder,
+  required,
+}: {
+  name: string;
+  label: string;
+  placeholder: string;
+  required?: boolean;
+}) {
   return (
     <label className="block">
       <span className="mb-1 block font-sans text-[10px] uppercase tracking-[0.25em] text-ink/70">
         {label}
       </span>
       <input
+        name={name}
         type="text"
+        required={required}
         placeholder={placeholder}
         className="w-full border-2 border-ink/80 bg-paper-deep px-3 py-2 font-sans text-sm outline-none focus:border-blood"
       />
     </label>
   );
 }
+
 
 function ContactRow({
   label,
