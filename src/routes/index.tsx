@@ -377,12 +377,14 @@ function Booking() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
     setStatus("submitting");
     setError("");
-    const fd = new FormData(e.currentTarget);
+    const fd = new FormData(form);
     const payload = {
       name: String(fd.get("name") ?? ""),
-      contact: String(fd.get("contact") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      email: String(fd.get("email") ?? ""),
       placement: String(fd.get("placement") ?? ""),
       size: String(fd.get("size") ?? ""),
       idea: String(fd.get("idea") ?? ""),
@@ -400,8 +402,8 @@ function Booking() {
         setStatus("error");
         return;
       }
+      form.reset();
       setStatus("success");
-      e.currentTarget.reset();
     } catch {
       setError("Network error. Please try again.");
       setStatus("error");
@@ -467,7 +469,8 @@ function Booking() {
             <>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <Field name="name" label="Name" placeholder="Your name" required />
-                <Field name="contact" label="Phone or email" placeholder="Best way to reach you" required />
+                <Field name="phone" label="Phone" placeholder="(000) 000-0000" required />
+                <Field name="email" label="Email" placeholder="you@email.com" />
                 <Field name="placement" label="Placement" placeholder="Arm, thigh, ribs…" />
                 <Field name="size" label="Approx. size" placeholder="e.g. 4 in." />
               </div>
