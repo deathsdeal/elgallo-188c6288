@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ConsentRouteImport } from './routes/consent'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicConsentRouteImport } from './routes/api/public/consent'
+import { Route as ApiPublicBookingRouteImport } from './routes/api/public/booking'
 
 const ConsentRoute = ConsentRouteImport.update({
   id: '/consent',
@@ -28,34 +29,48 @@ const ApiPublicConsentRoute = ApiPublicConsentRouteImport.update({
   path: '/api/public/consent',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicBookingRoute = ApiPublicBookingRouteImport.update({
+  id: '/api/public/booking',
+  path: '/api/public/booking',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/consent': typeof ConsentRoute
+  '/api/public/booking': typeof ApiPublicBookingRoute
   '/api/public/consent': typeof ApiPublicConsentRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/consent': typeof ConsentRoute
+  '/api/public/booking': typeof ApiPublicBookingRoute
   '/api/public/consent': typeof ApiPublicConsentRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/consent': typeof ConsentRoute
+  '/api/public/booking': typeof ApiPublicBookingRoute
   '/api/public/consent': typeof ApiPublicConsentRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/consent' | '/api/public/consent'
+  fullPaths: '/' | '/consent' | '/api/public/booking' | '/api/public/consent'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/consent' | '/api/public/consent'
-  id: '__root__' | '/' | '/consent' | '/api/public/consent'
+  to: '/' | '/consent' | '/api/public/booking' | '/api/public/consent'
+  id:
+    | '__root__'
+    | '/'
+    | '/consent'
+    | '/api/public/booking'
+    | '/api/public/consent'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConsentRoute: typeof ConsentRoute
+  ApiPublicBookingRoute: typeof ApiPublicBookingRoute
   ApiPublicConsentRoute: typeof ApiPublicConsentRoute
 }
 
@@ -82,12 +97,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/booking': {
+      id: '/api/public/booking'
+      path: '/api/public/booking'
+      fullPath: '/api/public/booking'
+      preLoaderRoute: typeof ApiPublicBookingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConsentRoute: ConsentRoute,
+  ApiPublicBookingRoute: ApiPublicBookingRoute,
   ApiPublicConsentRoute: ApiPublicConsentRoute,
 }
 export const routeTree = rootRouteImport
