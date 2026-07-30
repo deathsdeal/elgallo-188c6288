@@ -2,16 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import posterUrl from "@/assets/el-gallo-poster.jpg";
 import { Flourish, CornerHeart, Divider } from "@/components/el-gallo-ornaments";
-import anubisAsset from "@/assets/portfolio/anubis.jpg.asset.json";
-import kittenAsset from "@/assets/portfolio/kitten.jpg.asset.json";
-import piece3210Asset from "@/assets/portfolio/piece-3210.jpg.asset.json";
-import piece3769Asset from "@/assets/portfolio/piece-3769.jpg.asset.json";
-import piece3957Asset from "@/assets/portfolio/piece-3957.jpg.asset.json";
-import lotusAsset from "@/assets/portfolio/lotus.jpg.asset.json";
-import turtleAsset from "@/assets/portfolio/turtle.jpg.asset.json";
-import batmanAsset from "@/assets/portfolio/batman.jpg.asset.json";
-import wingsAsset from "@/assets/portfolio/wings.jpg.asset.json";
-import animeAsset from "@/assets/portfolio/anime.jpg.asset.json";
+import anubisUrl from "@/assets/portfolio/anubis.jpg";
+import kittenUrl from "@/assets/portfolio/kitten.jpg";
+import piece3210Url from "@/assets/portfolio/piece-3210.jpg";
+import piece3769Url from "@/assets/portfolio/piece-3769.jpg";
+import piece3957Url from "@/assets/portfolio/piece-3957.jpg";
+import lotusUrl from "@/assets/portfolio/lotus.jpg";
+import turtleUrl from "@/assets/portfolio/turtle.jpg";
+import batmanUrl from "@/assets/portfolio/batman.jpg";
+import wingsUrl from "@/assets/portfolio/wings.jpg";
+import animeUrl from "@/assets/portfolio/anime.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -269,16 +269,16 @@ function About() {
 
 function Portfolio() {
   const items = [
-    { title: "Anubis & Time", tag: "Forearm", src: anubisAsset.url },
-    { title: "Winged Heart", tag: "Back", src: wingsAsset.url },
-    { title: "Lotus in Bloom", tag: "Forearm", src: lotusAsset.url },
-    { title: "Dark Knight", tag: "Chest", src: batmanAsset.url },
-    { title: "Kitten", tag: "Leg", src: kittenAsset.url },
-    { title: "Anime Spirit", tag: "Thigh", src: animeAsset.url },
-    { title: "Hero in Half-Shell", tag: "Wrist", src: turtleAsset.url },
-    { title: "Custom Piece", tag: "In Progress", src: piece3210Asset.url },
-    { title: "Custom Piece", tag: "Healed", src: piece3769Asset.url },
-    { title: "Custom Piece", tag: "Fresh", src: piece3957Asset.url },
+    { title: "Anubis & Time", tag: "Forearm", src: anubisUrl },
+    { title: "Winged Heart", tag: "Back", src: wingsUrl },
+    { title: "Lotus in Bloom", tag: "Forearm", src: lotusUrl },
+    { title: "Dark Knight", tag: "Chest", src: batmanUrl },
+    { title: "Kitten", tag: "Leg", src: kittenUrl },
+    { title: "Anime Spirit", tag: "Thigh", src: animeUrl },
+    { title: "Hero in Half-Shell", tag: "Wrist", src: turtleUrl },
+    { title: "Custom Piece", tag: "In Progress", src: piece3210Url },
+    { title: "Custom Piece", tag: "Healed", src: piece3769Url },
+    { title: "Custom Piece", tag: "Fresh", src: piece3957Url },
   ];
   return (
     <section id="portfolio" className="relative border-y-2 border-blood/50 bg-paper-deep py-24">
