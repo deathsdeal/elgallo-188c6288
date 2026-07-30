@@ -369,7 +369,45 @@ function Flash() {
   );
 }
 
+type BookingStatus = "idle" | "submitting" | "success" | "error";
+
 function Booking() {
+  const [status, setStatus] = useState<BookingStatus>("idle");
+  const [error, setError] = useState("");
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("submitting");
+    setError("");
+    const fd = new FormData(e.currentTarget);
+    const payload = {
+      name: String(fd.get("name") ?? ""),
+      contact: String(fd.get("contact") ?? ""),
+      placement: String(fd.get("placement") ?? ""),
+      size: String(fd.get("size") ?? ""),
+      idea: String(fd.get("idea") ?? ""),
+    };
+
+    try {
+      const res = await fetch("/api/public/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = (await res.json()) as { ok?: boolean; error?: string };
+      if (!res.ok || !data.ok) {
+        setError(data.error || "Request failed. Please try again.");
+        setStatus("error");
+        return;
+      }
+      setStatus("success");
+      e.currentTarget.reset();
+    } catch {
+      setError("Network error. Please try again.");
+      setStatus("error");
+    }
+  }
+
   return (
     <section id="booking" className="relative border-t-2 border-blood/50 bg-ink py-24 text-paper">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 md:grid-cols-12">
@@ -401,7 +439,7 @@ function Booking() {
         </div>
 
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={onSubmit}
           className="border-2 border-blood bg-paper p-6 text-ink md:col-span-6 md:p-8"
         >
           <div className="mb-6 flex items-center justify-between">
@@ -410,51 +448,93 @@ function Booking() {
               № 001
             </span>
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <Field label="Name" placeholder="Your name" />
-            <Field label="Phone or email" placeholder="Best way to reach you" />
-            <Field label="Placement" placeholder="Arm, thigh, ribs…" />
-            <Field label="Approx. size" placeholder="e.g. 4 in." />
-          </div>
-          <label className="mt-4 block">
-            <span className="mb-1 block font-sans text-[10px] uppercase tracking-[0.25em] text-ink/70">
-              Idea
-            </span>
-            <textarea
-              rows={4}
-              placeholder="Rose with a dagger, black and red, forearm…"
-              className="w-full border-2 border-ink/80 bg-paper-deep px-3 py-2 font-sans text-sm outline-none focus:border-blood"
-            />
-          </label>
-          <button
-            type="submit"
-            className="mt-6 w-full rounded-sm border-2 border-blood bg-blood px-6 py-3 font-sans text-sm uppercase tracking-[0.25em] text-paper transition hover:bg-blood-deep"
-          >
-            Send request
-          </button>
-          <p className="mt-3 font-sans text-[10px] uppercase tracking-[0.2em] text-ink/50">
-            Deposit required to confirm — you&apos;ll hear back within 48 hours.
-          </p>
+
+          {status === "success" ? (
+            <div className="py-8 text-center">
+              <div className="font-display text-2xl text-blood">Request sent.</div>
+              <p className="mt-3 font-sans text-sm text-ink/70">
+                El Gallo will get back to you within 48 hours.
+              </p>
+              <button
+                type="button"
+                onClick={() => setStatus("idle")}
+                className="mt-6 inline-block font-sans text-xs uppercase tracking-[0.2em] text-blood underline underline-offset-4 hover:text-blood-deep"
+              >
+                Send another →
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <Field name="name" label="Name" placeholder="Your name" required />
+                <Field name="contact" label="Phone or email" placeholder="Best way to reach you" required />
+                <Field name="placement" label="Placement" placeholder="Arm, thigh, ribs…" />
+                <Field name="size" label="Approx. size" placeholder="e.g. 4 in." />
+              </div>
+              <label className="mt-4 block">
+                <span className="mb-1 block font-sans text-[10px] uppercase tracking-[0.25em] text-ink/70">
+                  Idea
+                </span>
+                <textarea
+                  name="idea"
+                  rows={4}
+                  placeholder="Rose with a dagger, black and red, forearm…"
+                  className="w-full border-2 border-ink/80 bg-paper-deep px-3 py-2 font-sans text-sm outline-none focus:border-blood"
+                />
+              </label>
+
+              {status === "error" && (
+                <p className="mt-4 border-2 border-blood bg-blood/5 p-3 text-sm text-blood">
+                  {error}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === "submitting"}
+                className="mt-6 w-full rounded-sm border-2 border-blood bg-blood px-6 py-3 font-sans text-sm uppercase tracking-[0.25em] text-paper transition hover:bg-blood-deep disabled:opacity-60"
+              >
+                {status === "submitting" ? "Sending…" : "Send request"}
+              </button>
+              <p className="mt-3 font-sans text-[10px] uppercase tracking-[0.2em] text-ink/50">
+                Deposit required to confirm — you&apos;ll hear back within 48 hours.
+              </p>
+            </>
+          )}
         </form>
       </div>
     </section>
   );
 }
 
-function Field({ label, placeholder }: { label: string; placeholder: string }) {
+
+function Field({
+  name,
+  label,
+  placeholder,
+  required,
+}: {
+  name: string;
+  label: string;
+  placeholder: string;
+  required?: boolean;
+}) {
   return (
     <label className="block">
       <span className="mb-1 block font-sans text-[10px] uppercase tracking-[0.25em] text-ink/70">
         {label}
       </span>
       <input
+        name={name}
         type="text"
+        required={required}
         placeholder={placeholder}
         className="w-full border-2 border-ink/80 bg-paper-deep px-3 py-2 font-sans text-sm outline-none focus:border-blood"
       />
     </label>
   );
 }
+
 
 function ContactRow({
   label,
